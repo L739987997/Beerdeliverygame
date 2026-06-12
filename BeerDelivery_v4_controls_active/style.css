@@ -1,0 +1,341 @@
+
+    :root {
+      color-scheme: dark;
+      --bg: #191311;
+      --ink: #fff3cf;
+      --muted: #d7c4a1;
+      --wood: #6f4327;
+      --wood-dark: #3d2417;
+      --amber: #f4b63d;
+      --foam: #fff4c4;
+      --green: #7dd87a;
+      --red: #ff6b6b;
+      --blue: #78d5ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding:
+        env(safe-area-inset-top)
+        env(safe-area-inset-right)
+        env(safe-area-inset-bottom)
+        env(safe-area-inset-left);
+    }
+
+    .game {
+      position: relative;
+      width: min(100%, 1280px, calc(100dvh * 16 / 9));
+      aspect-ratio: 16 / 9;
+      max-height: 100dvh;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 6px;
+      background:
+        radial-gradient(circle at 16% 20%, rgba(255, 210, 130, 0.18), transparent 34%),
+        linear-gradient(120deg, #342018, #14100d 70%);
+      box-shadow: 0 24px 90px rgba(0, 0, 0, 0.45);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hud {
+      position: absolute;
+      inset: 8px auto auto 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .headline {
+      display: none;
+      padding-top: 0;
+      font-weight: 950;
+      line-height: 1.05;
+    }
+
+    .headline small,
+    .score small {
+      display: block;
+      color: #f9d66e;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .headline strong {
+      display: block;
+      margin-top: 3px;
+      color: var(--ink);
+      max-width: min(720px, calc(100vw - 190px));
+      font-size: clamp(20px, 2.6vw, 29px);
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+    }
+
+    .score {
+      min-width: 124px;
+      padding: 7px 10px 9px;
+      border-radius: 0;
+      background: rgba(34, 19, 14, 0.74);
+      color: var(--ink);
+      text-align: left;
+      font-weight: 950;
+    }
+
+    .score strong {
+      display: block;
+      color: #ff4a4a;
+      font-size: 19px;
+      line-height: 1;
+      letter-spacing: 3px;
+      text-shadow: 0 2px 0 rgba(105, 20, 16, 0.8);
+    }
+
+    .touch-controls {
+      position: absolute;
+      inset: auto 0 0;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 22px max(18px, env(safe-area-inset-bottom));
+      pointer-events: none;
+    }
+
+    .touch-group {
+      display: flex;
+      gap: 14px;
+      pointer-events: auto;
+    }
+
+    .touch-controls button {
+      width: 104px;
+      height: 76px;
+      min-height: 0;
+      margin: 0;
+      padding: 0;
+      border: 2px solid rgba(255, 234, 164, 0.5);
+      border-radius: 8px;
+      background: rgba(31, 19, 12, 0.82);
+      color: #ffe6a2;
+      font-size: 17px;
+      font-weight: 950;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .touch-controls .beer-control {
+      width: 154px;
+      background: rgba(157, 87, 24, 0.9);
+      font-size: 19px;
+    }
+
+    .reset-control {
+      position: absolute;
+      top: max(12px, env(safe-area-inset-top));
+      right: max(14px, env(safe-area-inset-right));
+      z-index: 2;
+      min-width: 88px;
+      min-height: 46px;
+      margin: 0;
+      padding: 0 16px;
+      border: 2px solid rgba(255, 234, 164, 0.5);
+      border-radius: 8px;
+      background: rgba(31, 19, 12, 0.82);
+      color: #ffe6a2;
+      font-size: 14px;
+      font-weight: 950;
+      touch-action: manipulation;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(22, 13, 8, 0.66);
+      backdrop-filter: blur(1px);
+      z-index: 3;
+    }
+
+    .overlay.hidden {
+      display: none;
+    }
+
+    .dialog {
+      width: min(560px, calc(100vw - 36px));
+      padding: 24px;
+      text-align: center;
+    }
+
+    .level-dialog {
+      width: min(520px, calc(100vw - 32px));
+    }
+
+    .level-dialog small {
+      color: #f9d66e;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+    }
+
+    .level-dialog p {
+      white-space: pre-line;
+      font-size: 18px;
+    }
+
+    h1,
+    h2,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2 {
+      font-size: clamp(38px, 7vw, 72px);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin-top: 14px;
+      color: #f2dcc1;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .start-help {
+      width: min(470px, 100%);
+      margin: 18px auto 0;
+      color: #f7dfb8;
+      text-align: left;
+      font-weight: 750;
+      line-height: 1.65;
+    }
+
+    .start-help span {
+      color: #ffcf68;
+      font-weight: 950;
+    }
+
+    button {
+      width: auto;
+      padding: 0 22px;
+      min-height: 48px;
+      margin-top: 20px;
+      border: 0;
+      border-radius: 8px;
+      background: #f6bd46;
+      color: #231508;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    button:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 680px) {
+      .game {
+        width: min(100%, calc((100dvh - env(safe-area-inset-bottom)) * 16 / 9));
+        border: 0;
+      }
+
+      .hud {
+        inset: 4px auto auto 6px;
+      }
+
+      .score {
+        min-width: 105px;
+        padding: 5px 8px 7px;
+      }
+
+      .score strong {
+        font-size: 16px;
+      }
+
+      .touch-controls {
+        padding: 0 10px max(10px, env(safe-area-inset-bottom));
+      }
+
+      .touch-group {
+        gap: 8px;
+      }
+
+      .touch-controls button {
+        width: 82px;
+        height: 64px;
+        font-size: 15px;
+      }
+
+      .touch-controls .beer-control {
+        width: 122px;
+        font-size: 17px;
+      }
+
+      .reset-control {
+        top: max(8px, env(safe-area-inset-top));
+        right: max(8px, env(safe-area-inset-right));
+        min-width: 72px;
+        min-height: 40px;
+        padding: 0 12px;
+        font-size: 12px;
+      }
+
+      .dialog {
+        padding: 16px;
+      }
+
+      h1,
+      h2 {
+        font-size: 38px;
+      }
+
+      .level-dialog p,
+      .start-help {
+        font-size: 14px;
+      }
+    }
+
+    @media (orientation: portrait) {
+      .overlay {
+        position: fixed;
+        inset:
+          env(safe-area-inset-top)
+          env(safe-area-inset-right)
+          env(safe-area-inset-bottom)
+          env(safe-area-inset-left);
+      }
+
+      .dialog {
+        width: min(520px, calc(100vw - 28px));
+      }
+    }
+  

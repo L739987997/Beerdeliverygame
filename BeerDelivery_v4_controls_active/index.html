@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beer Delivery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game" aria-label="Beer Delivery game">
+    <canvas id="canvas" width="1280" height="720"></canvas>
+
+    <section class="hud" aria-hidden="true">
+      <div class="score"><small id="detailText">Level 1</small><strong id="scoreText">♥♥♥♥♥</strong></div>
+      <div class="headline"><small>Beer Delivery</small><strong id="statusText">Serve every row before trouble reaches the taps.</strong></div>
+    </section>
+    <section class="touch-controls" aria-label="Touch controls">
+      <div class="touch-group">
+        <button type="button" id="touchUp" aria-label="Move up">UP</button>
+        <button type="button" id="touchDown" aria-label="Move down">DOWN</button>
+      </div>
+      <div class="touch-group">
+        <button type="button" id="touchBeer" class="beer-control" aria-label="Deliver beer">BEER</button>
+      </div>
+    </section>
+    <button type="button" id="touchRestart" class="reset-control" aria-label="Reset game">Reset</button>
+
+    <section class="overlay" id="startScreen">
+      <div class="dialog">
+        <h1>Beer Delivery</h1>
+        <p class="start-help">
+          <span>Goal</span>: Deliver beer, catch returned mugs, protect your 5 lives, and clear all 50 levels.<br>
+          <span>Controls</span>: Up / Down change rows, Space delivers beer, and R restarts.
+        </p>
+        <button id="startBtn">Start Delivery</button>
+      </div>
+    </section>
+
+    <section class="overlay hidden" id="levelScreen">
+      <div class="dialog level-dialog">
+        <small id="levelEyebrow">LEVEL 1</small>
+        <h2 id="levelTitle">Level 1</h2>
+        <p id="levelMessage">Deliver beer to customers.</p>
+        <button id="levelStartBtn">Start Level 1</button>
+      </div>
+    </section>
+
+    <section class="overlay hidden" id="resultScreen">
+      <div class="dialog">
+        <h2 id="resultTitle">You Win</h2>
+        <p id="resultText">Every customer caught a drink.</p>
+        <button id="restartBtn">Play Again</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
